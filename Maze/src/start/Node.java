@@ -1,10 +1,14 @@
 package start;
 import java.util.*;
 
+//A nood can be :
+//--- A white pixel which have more than one white pixel on left,right,up or down.
+//This class store nodes in order to let you generate a graph .
+//Each node have it's current position and a list of neighbors.
 public class Node {
-	int x;  //Positia de x
-	int y;	//Pozitia pe y
-	public List<Node> neighbours=new ArrayList<Node>();  //Lista de vecini ai fiecarui nod
+	int x;  //Positia  x
+	int y;	//Pozitia  y
+	public List<Node> neighbours=new ArrayList<Node>();  //Lista de vecini ai nodului.
 	
 	@Override
 	public String toString() {
@@ -34,7 +38,7 @@ public class Node {
 		neighbours.remove(node);
 	}
 	
-	// Calculeaza dinstanta dintre oricare 2 noduri(nodul curent si un alt nod dat ca paramentru pentru functie)
+	// Calculeaza dinstanta dintre nodul curent si nodul dat ca parametru.
 	public double getDistance(Node node)
 	{
 		int x = Math.abs(node.x - this.x);

@@ -4,26 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//This class store methods to randomly build a maze.
 public class MazeBuilder {
 
-	int left=0;
-	int right=0;
-	int down=0;
-	int up=0;
-	int x; 
-	int y;
-	int xFinish;  //X-ul punctului de sfarsit al labirintului
-	List <Pixel> pixels=new ArrayList<Pixel>();
+	private Image image; //image where the maze will be stored.
 	
-	// Alege un numar un numar cumprins intre un minim si un maxim(inclusiv) si il returneaza
-	public int randomInt(int minValue,int maxValue)
+	private int left=0;
+	private int right=0;
+	private int down=0;
+	private int up=0;
+	
+	private int x; 
+	private int y;
+	
+	private int xFinish;  //X-ul punctului de sfarsit al labirintului
+	private List <Pixel> pixels=new ArrayList<Pixel>();
+	
+	// Alege un numar cumprins intre un minim si un maxim(inclusiv) si il returneaza
+	private int randomInt(int minValue,int maxValue)
 	{
 	    Random random=new Random();
 		return random.nextInt((maxValue-minValue) + 1) + minValue;
 	}
 	
-	//Metoda folosita pentru a alege in ce direntie va merge calea labirintului si care returneaza un numar random
-	public void setRandomDirection(int minValue,int maxValue,Image image)
+	//Metoda folosita pentru a alege in ce direntie va merge calea labirintului 
+	private void setRandomDirection(int minValue,int maxValue,Image image)
 	{
 		int randomInt=randomInt(minValue,maxValue);
 		if((randomInt>0)&&(randomInt<=40))
@@ -51,7 +56,7 @@ public class MazeBuilder {
 	
 	
 	//Seteaza primele 2 puncte de inceput al labirintului
-	public void firstTwoPoints(Image image)
+	private void firstTwoPoints(Image image)
 	{
 		int xStart=randomInt(1, image.img.getWidth()-2);
 		image.img.setRGB(xStart,0, Color.White().pixel);
@@ -61,14 +66,14 @@ public class MazeBuilder {
 	}
 	
 	//Seteaza punctul in care se trmina labirintul
-	public void finishPoint(Image image)
+	private void finishPoint(Image image)
 	{
 		xFinish=randomInt(1, image.img.getWidth()-2);
 		image.img.setRGB(xFinish, image.img.getHeight()-1, Color.White().pixel);
 	}
 	
 	//Seteaza pozitiile pixelilor si ii adauga in lista
-	public void addPixels(int x, int y)
+	private void addPixels(int x, int y)
 	{
 		Pixel pixel=new Pixel();
 		pixel.setPosition(x, y);
@@ -76,7 +81,7 @@ public class MazeBuilder {
 	}
 	
 	//Se verifica in ce directii se pot merge
-	public void checkDirections(int x,int y,Image image)
+	private void checkDirections(int x,int y,Image image)
 	{
 		up=0;
 		down=0;
@@ -105,9 +110,8 @@ public class MazeBuilder {
 	}
 	
 	//Creaza path-ul de la inceput la sfarsit al labirintului
-	public void makePath(Image image)
+	private void createPath()
 	{
-		
 		firstTwoPoints(image);
 		finishPoint(image);
 		y=1;
@@ -206,11 +210,21 @@ public class MazeBuilder {
 			}
 		}
 		addPixels(xFinish, image.img.getHeight()-1);	 //Adauga si ultimul pixel in lista		
-		createMaze(image);		
+		createMazeBranches();		
 	}
 	
+	//Create a maze with a certain width and height.
+	//Parameters : width - maze width
+	//			   height - maze height
+	//Return : Image of the maze .
+	public Image createMaze(int width,int height) {
+		image=new Image(width, height);
+		createPath();
+		return image;
+	}
 	
-	public void createMaze(Image image)
+	//Create maze branches that derive from the path that exists betwen start and finish point.
+	private void createMazeBranches()
 	{
 		int randomInt;
 		for(int i=1;i<pixels.size()-1;i=i+2)
@@ -266,14 +280,3 @@ public class MazeBuilder {
 	}
 }
 
-
-
-/*
- 	try {
-			image.f = new File("C:\\Users\\Soul.Soul-PC\\Desktop\\Output2.png");
-			ImageIO.write(image.img, "png", image.f);
-		}
-
-		catch (IOException e) {
-			System.out.println(e);
-		}*/

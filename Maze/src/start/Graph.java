@@ -2,34 +2,39 @@ package start;
 
 import java.util.*;
 
-
 public class Graph {
 	List<Node> nodes = new ArrayList<Node>(); // toate nodurile din imagine
-	
+
+	//This method make from a black and white image a graph .
+	//The graph is generated only from the white pixels.
+	//Nodes are connected with each other only if they have a straight path through them.
+	//
+	//Parameters : image - a black and white image (this can be a maze)
+	//Return : return a list of nodes . (nodes have set their neighbors)
 	public List<Node> CreateGraph(Image image) {
 		findNodes(image);
 		nodeNeighbours(image);
 		return nodes;
 	}
 
-	// gaseste nodurile si le adauga in lista de noduri
-		void findNodes(Image image) {
-			startPoint(image);
-			// parcurg imaginea pixel cu pixel
-			for (int y = 1; y < image.img.getHeight() - 1; y++)
-				for (int x = 1; x < image.img.getWidth() - 1; x++) {
-					// adauga nodul gasit in lista
-					if (image.checkIfItIsNode(x, y)) {
-						Node foundNode = new Node();
-						foundNode.setPosition(x, y);
-						nodes.add(foundNode);
-					}
+	// gaseste nodurile din imagine si le adauga in lista de noduri
+	private void findNodes(Image image) {
+		startPoint(image); //adauga nodul de start.
+		// parcurg imaginea pixel cu pixel
+		for (int y = 1; y < image.img.getHeight() - 1; y++)
+			for (int x = 1; x < image.img.getWidth() - 1; x++) {
+				// adauga nodul gasit in lista
+				if (image.checkIfItIsNode(x, y)) {
+					Node foundNode = new Node();
+					foundNode.setPosition(x, y);
+					nodes.add(foundNode);
 				}
-			finishPoint(image);
-		}
+			}
+		finishPoint(image); //adauga nodul de finish.
+	}
 
 	// Gaseste punctul de inceput al labirintului si il introduce in lista de noduri
-	public void startPoint(Image image) {
+	private  void startPoint(Image image) {
 		for (int i = 0; i < image.img.getHeight(); i++) {
 			Color color = new Color();
 			color.pixel = image.img.getRGB(i, 0);
@@ -44,7 +49,7 @@ public class Graph {
 	}
 
 	// Gaseste punctul de sfarsit al labirintului si il introduce in lista de noduri
-	public void finishPoint(Image image) {
+	private  void finishPoint(Image image) {
 		for (int i = 0; i < image.img.getHeight(); i++) {
 			Color color = new Color();
 			color.pixel = image.img.getRGB(i, image.img.getWidth() - 1);
@@ -57,10 +62,9 @@ public class Graph {
 			}
 		}
 	}
-	
 
 	// Gaseste un nod care este in lista si il returneaza ca referinta.
-	public Node findNode(int x, int y) {
+	private Node findNode(int x, int y) {
 
 		for (Node node : nodes) {
 			if (node.x == x && node.y == y) {
@@ -70,11 +74,8 @@ public class Graph {
 		return null;
 	}
 
-	////////////////////////
-	/////////////////////////                DE MODIFICAT
-	/////////////////////////
-	//Verifica daca nodul este vecin si il adauga in lista de vecini
-	public boolean checkAndAddIfNeighbour(int x, int y, int i,Image image) {
+	// Verifica daca nodul este vecin si il adauga in lista de vecini
+	private boolean checkAndAddIfNeighbour(int x, int y, int i, Image image) {
 		Color color = new Color();
 		color.pixel = image.img.getRGB(x, y);
 		color.setARGB(color.pixel);
@@ -92,7 +93,7 @@ public class Graph {
 	}
 
 	// Completam lista de vecini a nodurilor
-	public void nodeNeighbours(Image image) {
+	private void nodeNeighbours(Image image) {
 		// parcurgem lista de noduri gasite
 		for (int i = 0; i < nodes.size(); i++) {
 			int x = nodes.get(i).x;
@@ -101,7 +102,7 @@ public class Graph {
 			// Verificam sa nu iesim din limitele imagini
 			while (x > 0) {
 				x--;
-				if (checkAndAddIfNeighbour(x, y, i,image)) {
+				if (checkAndAddIfNeighbour(x, y, i, image)) {
 					break;
 				}
 			}
@@ -110,7 +111,7 @@ public class Graph {
 			// Verificam sa nu iesim din limitele imagini
 			while (x < image.img.getWidth() - 1) {
 				x++;
-				if (checkAndAddIfNeighbour(x, y, i,image)) {
+				if (checkAndAddIfNeighbour(x, y, i, image)) {
 					break;
 				}
 			}
@@ -119,7 +120,7 @@ public class Graph {
 			// Verificam sa nu iesim din limitele imagini
 			while (y > 0) {
 				y--;
-				if (checkAndAddIfNeighbour(x, y, i,image)) {
+				if (checkAndAddIfNeighbour(x, y, i, image)) {
 					break;
 				}
 			}
@@ -128,7 +129,7 @@ public class Graph {
 			// Verificam sa nu iesim din limitele imagini
 			while (y < image.img.getHeight() - 1) {
 				y++;
-				if (checkAndAddIfNeighbour(x, y, i,image)) {
+				if (checkAndAddIfNeighbour(x, y, i, image)) {
 					break;
 				}
 			}

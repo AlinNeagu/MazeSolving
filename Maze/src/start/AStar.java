@@ -8,8 +8,9 @@ public class AStar implements IPathFinding{
 	Stack<Node> pathNodes = new Stack<Node>();
 
 	
+	//Returneaza calea intr-un stack in ordinea care trebuie parcursa.
 	public Stack<Node> findPath(List<Node> nodes) {
-		mazeSolving(nodes);
+		findPathInGraph(nodes);
 		nodesFromPath();
 		return pathNodes;
 	}
@@ -29,6 +30,8 @@ public class AStar implements IPathFinding{
 		double minimum = list.get(0).distance; // Minimum este valoarea cea mai mica dintre toate distantele pana la
 												// ultimul nod
 		int index = 0;
+		
+		//cauta nodul cu distanta cea mai mica.
 		for (int i = 1; i < list.size(); i++) {
 			// Cauta care nod are distanta cea mai mica
 			if (list.get(i).distance < minimum) {
@@ -36,12 +39,13 @@ public class AStar implements IPathFinding{
 				index = i;
 			}
 		}
+		
 		// Returneaza obiectul din lista care area distanta cea mai mica
 		return list.get(index);
 
 	}
 
-	// O metoda care verifica sa nu fie acelasi nod utilizand pozitiile x si y
+	// Verifica daca doua noduri sunt la fel . (pe aceeasi pozitie)
 	public boolean checkIfIsSameNode(Node node1, Node node2) {
 		if ((node1.x == node2.x) && (node1.y == node2.y)) {
 			return true;
@@ -50,8 +54,8 @@ public class AStar implements IPathFinding{
 		}
 	}
 
-	//Rezolvarea labirintului
-	public void mazeSolving(List<Node> nodes) {
+	// Gaseste ce-a mai rapida cale de a rezolva labirintul folosind algoritmul A*.
+	public void findPathInGraph(List<Node> nodes) {
 		startNode(nodes);
 		while (toVisit.size() > 0) {
 			// Verificam daca nodul care urmeaza sa fie vizitat este sfarsitul labirintului
@@ -103,8 +107,6 @@ public class AStar implements IPathFinding{
 
 	// Adauga nodurile care definesc calea labirintului in stack
 	public void nodesFromPath() {
-		// System.out.println(visited.get(visited.size()-1).curentNode.x);
-		// System.out.println(visited.get(visited.size()-1).curentNode.y);
 
 		NodeHelper curentNodeHelper = visited.get(visited.size() - 1);
 		while (curentNodeHelper.previousNode != null) {
@@ -123,5 +125,14 @@ public class AStar implements IPathFinding{
 			pathNodes.push(curentNodeHelper.curentNode);
 		}
 	}
+	
+	private class NodeHelper {
+		Node curentNode=new Node();
+		double traveled;  // Distanta parcursa
+		double distance;	// Suma dintre distanta de la nodul curent la ultimul nod si distanta parcursa
+		Node previousNode=new Node();
+	}
 
 }
+
+
