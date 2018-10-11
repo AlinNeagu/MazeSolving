@@ -209,8 +209,7 @@ public class MazeBuilder {
 				}
 			}
 		}
-		addPixels(xFinish, image.img.getHeight()-1);	 //Adauga si ultimul pixel in lista		
-		createMazeBranches();		
+		addPixels(xFinish, image.img.getHeight()-1);	 //Adauga si ultimul pixel in lista			
 	}
 	
 	//Create a maze with a certain width and height.
@@ -220,6 +219,7 @@ public class MazeBuilder {
 	public Image createMaze(int width,int height) {
 		image=new Image(width, height);
 		createPath();
+		createMazeBranches();	
 		return image;
 	}
 	
@@ -227,7 +227,7 @@ public class MazeBuilder {
 	private void createMazeBranches()
 	{
 		int randomInt;
-		for(int i=1;i<pixels.size()-1;i=i+2)
+		for(int i=1;i<pixels.size()-1;i=i+1)
 		{
 			x=pixels.get(i).x;
 			y=pixels.get(i).y;
@@ -235,43 +235,30 @@ public class MazeBuilder {
 					
 			while((x>1)&&(x<image.img.getWidth()-2)&&(y>1)&&(y<image.img.getHeight()-2))
 			{
-				randomInt=randomInt(1,121);
-				//daca numarul este intre 0 si 40 
-				if((randomInt>0)&&(randomInt<=40))
+				randomInt=randomInt(1,130);
+				checkDirections(x, y, image);
+				
+				//daca se poate merge in stanga si daca numarul este intre 0 si 40 
+				if((left==1)&&(randomInt>0)&&(randomInt<=40))
 				{
-					checkDirections(x, y, image);
-					//verificam daca se poate merge in stanga
-					if(left==1)
-					{
-						setRandomDirection(randomInt, randomInt, image);
-					}
-
+					setRandomDirection(randomInt, randomInt, image);
 				}
-				else if((randomInt>40)&&(randomInt<=60))
+				//daca se poate merge in jos si daca numarul este intre 41 si 60 
+				else if((down==1)&&(randomInt>40)&&(randomInt<=60))
 				{
-					checkDirections(x, y, image);
-					if(down==1)
-					{
-						setRandomDirection(randomInt, randomInt, image);
-					}
+					setRandomDirection(randomInt, randomInt, image);
 				}
-				else if((randomInt>60)&&(randomInt<=100))
+				//daca se poate merge in dreapta si daca numarul este intre 61 si 100 
+				else if((right==1)&&(randomInt>60)&&(randomInt<=100))
 				{
-					checkDirections(x, y, image);
-					if(right==1)
-					{
-						setRandomDirection(randomInt, randomInt, image);
-					}
+					setRandomDirection(randomInt, randomInt, image);
 				}
-				else if((randomInt>100)&&(randomInt<=120))
+				//daca se poate merge in sus si daca numarul este intre 101 si 120 
+				else if((up==1)&&(randomInt>100)&&(randomInt<=120))
 				{
-					checkDirections(x, y, image);
-					if(up==1)
-					{
-						setRandomDirection(randomInt, randomInt, image);
-					}
+					setRandomDirection(randomInt, randomInt, image);
 				}
-				else
+				else if(right==0 && left ==0 && up==0 && down==0 || randomInt>120)
 				{
 					break;
 				}

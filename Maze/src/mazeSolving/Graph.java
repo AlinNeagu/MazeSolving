@@ -35,7 +35,7 @@ public class Graph {
 
 	// Gaseste punctul de inceput al labirintului si il introduce in lista de noduri
 	private  void startPoint(Image image) {
-		for (int i = 0; i < image.img.getHeight(); i++) {
+		for (int i = 0; i < image.img.getWidth(); i++) {
 			Color color = new Color();
 			color.pixel = image.img.getRGB(i, 0);
 			color.setARGB(color.pixel);
@@ -50,14 +50,14 @@ public class Graph {
 
 	// Gaseste punctul de sfarsit al labirintului si il introduce in lista de noduri
 	private  void finishPoint(Image image) {
-		for (int i = 0; i < image.img.getHeight(); i++) {
+		for (int i = 0; i < image.img.getWidth(); i++) {
 			Color color = new Color();
-			color.pixel = image.img.getRGB(i, image.img.getWidth() - 1);
+			color.pixel = image.img.getRGB(i, image.img.getHeight() - 1);
 			color.setARGB(color.pixel);
 
 			if ((color.red == 255) && (color.green == 255) && (color.blue == 255)) {
 				Node foundNode = new Node();
-				foundNode.setPosition(i, image.img.getWidth() - 1);
+				foundNode.setPosition(i, image.img.getHeight() - 1);
 				nodes.add(foundNode);
 			}
 		}

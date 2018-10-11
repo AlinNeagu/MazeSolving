@@ -33,7 +33,6 @@ public class Image {
 
 	public Image(int width, int height) {
 		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		File f = null;
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++) {
 				img.setRGB(x, y, Color.Black().pixel);
@@ -63,7 +62,7 @@ public class Image {
 				return true;
 			}
 
-			color.pixel = img.getRGB(x, y - 1);
+			color.pixel = img.getRGB(x-1, y);
 			color.setARGB(color.pixel);
 
 			// Dupa ce gasim un pixeil alb verificam daca si cel din stanga lui e alb
@@ -71,7 +70,7 @@ public class Image {
 				left = 1;
 			}
 
-			color.pixel = img.getRGB(x, y + 1);
+			color.pixel = img.getRGB(x+1, y);
 			color.setARGB(color.pixel);
 
 			// Dupa ce gasim un pixeil alb verificam daca si cel din dreapta lui e alb
@@ -79,7 +78,7 @@ public class Image {
 				right = 1;
 			}
 
-			color.pixel = img.getRGB(x - 1, y);
+			color.pixel = img.getRGB(x, y-1);
 			color.setARGB(color.pixel);
 
 			// Dupa ce gasim un pixeil alb verificam daca si cel de deasupra lui e alb
@@ -87,7 +86,7 @@ public class Image {
 				up = 1;
 			}
 
-			color.pixel = img.getRGB(x + 1, y);
+			color.pixel = img.getRGB(x, y+1);
 			color.setARGB(color.pixel);
 
 			// Dupa ce gasim un pixeil alb verificam daca si cel de sub el e alb
