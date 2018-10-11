@@ -1,4 +1,4 @@
-package start;
+package mazeSolving;
 
 import java.util.*;
 

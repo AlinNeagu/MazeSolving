@@ -1,4 +1,4 @@
-package start;
+package mazeSolving;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package start;
+package mazeSolving;
 
 public class Color {
 	 int pixel;
