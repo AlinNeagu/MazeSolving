@@ -1,3 +1,1 @@
-Alin
-Bogdan
-Whateverasdas
+# Maze Solving application 
