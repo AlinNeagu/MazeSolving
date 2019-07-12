@@ -105,12 +105,12 @@ public class Main {
 		System.out.println("# If you want to load your own maze image the application will solve you must insert the following arguments"); 
 		System.out.println("## The path of the maze image you want to solve");
 		System.out.println("## The path where the solved maze image will be placed");
-		System.out.println("### Exemple:java mazeSolving.Main C:\\Users\\Desktop\\Maze.png C:\\Users\\Desktop");
+		System.out.println("### Exemple:java -jar MazeSolving.jar C:\\Users\\Desktop\\Maze.png C:\\Users\\Desktop");
 		System.out.println("# If you want the aplication to generate a maze image for you and then solve it you must insert the following arguments");
 		System.out.println("## The path where the created maze image and solved maze image will be placed");
 		System.out.println("## The Width of the image");
 		System.out.println("## The Height of the image");	
-		System.out.println("### Exemple:java mazeSolving.Main C:\\Users\\Desktop 30 30");
+		System.out.println("### Exemple:java -jar MazeSolving.jar C:\\Users\\Desktop 30 30");
 	}
 	
 }
