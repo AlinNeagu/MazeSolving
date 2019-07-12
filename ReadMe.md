@@ -8,7 +8,7 @@ Running the application:
 -Open Command Prompt and go where download project is located.    
 -Use "java" command followed by "-jar", the executable jar ("MazeSolving") and arguments to run the application.  
 
-How to add arguments:
+How to add arguments:  
 -If you want to load your own maze image the application will solve you must insert the following arguments   
 --The path of the maze image you want to solve  
 --The path where the solved maze image will be placed  
