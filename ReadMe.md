@@ -5,8 +5,8 @@ Things you need to download and instal:
 -Download and instal Java SE Runetime Environment - use this link: https://www.java.com/en/download/  
   
 Running the application:  
--Open Command Prompt and go where download project is located.    
--Use "java" command followed by "-jar", the executable jar ("MazeSolving") and arguments to run the application.  
+-Open Command Prompt and go where downloaded project is located.    
+-Use "java" command followed by "-jar", the executable jar ("MazeSolving") and arguments to run the application.    
 
 How to add arguments:  
 -If you want to load your own maze image the application will solve you must insert the following arguments   
